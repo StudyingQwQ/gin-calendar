@@ -1,0 +1,16 @@
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: 123456
+  name: gin_calendar
+
+server:
+  port: 8080
+
+jwt:
+  secret: gin_calendar
+
+email:
+  account: 13760831277@163.com
+  password: PAPQMFLGPZIIEPBJ
