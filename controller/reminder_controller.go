@@ -37,7 +37,8 @@ func CreateReminder(ctx *gin.Context) {
 		return
 	}
 
-	t, err := time.Parse("2006-01-02 15:04:05", info.ReminderTime)
+	loc, _ := time.LoadLocation("Asia/Shanghai")
+	t, err := time.ParseInLocation("2006-01-02 15:04:05", info.ReminderTime, loc)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"code": 400,
@@ -121,7 +122,8 @@ func UpdateReminder(ctx *gin.Context) {
 		return
 	}
 
-	t, err := time.Parse("2006-01-02 15:04:05", info.ReminderTime)
+	loc, _ := time.LoadLocation("Asia/Shanghai")
+	t, err := time.ParseInLocation("2006-01-02 15:04:05", info.ReminderTime, loc)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"code": 400,
