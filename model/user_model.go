@@ -8,10 +8,10 @@ import (
 )
 
 type UserBasic struct {
-	ID         int64 `gorm:"primary_key"`
-	Identity   string
-	Email      string
-	Password   string
+	ID         int64  `gorm:"primaryKey;autoIncrement"`
+	Identity   string `gorm:"not null;"`
+	Email      string `gorm:"not null;"`
+	Password   string `gorm:"not null;"`
 	CreateTime time.Time
 	UpdateTime time.Time
 }

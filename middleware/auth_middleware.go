@@ -9,7 +9,7 @@ import (
 
 func JWTAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		token := c.GetHeader("token")
+		token := c.GetHeader("Authorization")
 		userClaims, err := utils.AnalyseToken(token)
 		if err != nil {
 			c.Abort()
