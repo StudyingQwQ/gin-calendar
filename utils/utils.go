@@ -68,8 +68,8 @@ func MailReminder(mail, content string) error {
 	e := email.NewEmail()
 	e.From = "Test <" + mailAccount + ">"
 	e.To = []string{mail}
-	e.Subject = "验证码发送测试"
-	e.HTML = []byte("您的验证码为<h1>" + content + "</h1>")
+	e.Subject = "日程提醒"
+	e.HTML = []byte("您现在需要去做<h1>" + content + "</h1>")
 	err := e.SendWithStartTLS("smtp.163.com:25", smtp.PlainAuth("", mailAccount, mailPassword, "smtp.163.com"),
 		&tls.Config{InsecureSkipVerify: true, ServerName: "smtp.163.com"})
 	if err != nil {
