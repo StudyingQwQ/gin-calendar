@@ -24,7 +24,7 @@ func main() {
 
 	go func() {
 		log.Printf("定时任务已启动")
-		// 每 10 秒检查一次过期的 Reminder
+		// 每 10 秒检查一次过期的日程
 		for {
 			service.ProcessReminders(redisClient)
 			time.Sleep(10 * time.Second)
