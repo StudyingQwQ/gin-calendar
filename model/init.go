@@ -3,12 +3,14 @@ package model
 import (
 	"fmt"
 
+	"github.com/go-redis/redis/v8"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
+var RDB = InitRedis()
 
 func InitDB() *gorm.DB {
 	host := viper.GetString("mysql.host")
@@ -34,6 +36,14 @@ func InitDB() *gorm.DB {
 	DB = db
 
 	return db
+}
+
+func InitRedis() *redis.Client {
+	// host := viper.GetString("redis.host")
+	// port := viper.GetString("redis.port")
+	return redis.NewClient(&redis.Options{
+		Addr: "localhost:6379",
+	})
 }
 
 func GetDB() *gorm.DB {

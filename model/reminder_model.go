@@ -29,6 +29,18 @@ func CreateReminderInfo(reminderInfo *ReminderBasic) error {
 	return nil
 }
 
+func GetAllReminderInfos() ([]*ReminderBasic, error) {
+	var reminderInfos []*ReminderBasic
+
+	db := GetDB()
+	err := db.Where("is_deleted = 0").Find(&reminderInfos).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return reminderInfos, nil
+}
+
 func GetReminderInfosByCreatorID(creatorID string) ([]*ReminderBasic, error) {
 	var reminderInfos []*ReminderBasic
 

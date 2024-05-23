@@ -16,10 +16,10 @@ func SetupRouter(r *gin.Engine) *gin.Engine {
 	reminder := r.Group("/reminders")
 	reminder.Use(middleware.JWTAuth())
 	{
-		reminder.POST("/", controller.CreateReminder)
-		reminder.GET("/", controller.GetReminderList)
-		reminder.PATCH("/:id", controller.UpdateReminder)
-		reminder.DELETE("/:id", controller.DeleteReminder)
+		reminder.POST("/create", controller.CreateReminder)
+		reminder.GET("/list", controller.GetReminderList)
+		reminder.POST("/update/:id", controller.UpdateReminder)
+		reminder.POST("/delete/:id", controller.DeleteReminder)
 	}
 
 	return r
