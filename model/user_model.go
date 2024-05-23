@@ -51,3 +51,15 @@ func GetUserByEmail(email string) (*UserBasic, error) {
 	}
 	return &ub, nil
 }
+
+func GetUserByIdentity(identity string) (*UserBasic, error) {
+	db := GetDB()
+	var ub UserBasic
+	if err := db.Where("identity = ?", identity).First(&ub).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
+		return nil, err
+	}
+	return &ub, nil
+}

@@ -6,11 +6,4 @@ mysql:
   name: gin_calendar
 
 server:
-  port: 8080
-
-jwt:
-  secret: gin_calendar
-
-email:
-  account: 13760831277@163.com
-  password: PAPQMFLGPZIIEPBJ
+  port: 8081

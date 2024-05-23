@@ -9,7 +9,6 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/google/uuid"
 	"github.com/jordan-wright/email"
-	"github.com/spf13/viper"
 )
 
 type UserClaims struct {
@@ -18,17 +17,11 @@ type UserClaims struct {
 	jwt.RegisteredClaims
 }
 
-// GetMd5
-// 生成 md5
-func GetMd5(s string) string {
-	return fmt.Sprintf("%x", md5.Sum([]byte(s)))
-}
+var myKey = []byte("gin-calendar-key")
 
-var myKey = []byte(viper.GetString("jwt.secret"))
-
-// GenerateToken
 // 生成 token
 func GenerateToken(identity, email string) (string, error) {
+	fmt.Printf("%s", string(myKey))
 	UserClaim := &UserClaims{
 		Identity:         identity,
 		Email:            email,
@@ -42,7 +35,6 @@ func GenerateToken(identity, email string) (string, error) {
 	return tokenString, nil
 }
 
-// AnalyseToken
 // 解析 token
 func AnalyseToken(tokenString string) (*UserClaims, error) {
 	userClaim := new(UserClaims)
@@ -69,15 +61,15 @@ func GetUUID() string {
 	return fmt.Sprintf("%x", u)
 }
 
-// 发送邮件验证码
-func MailSendCode(mail, code string) error {
-	mailAccount := viper.GetString("email.account")
-	mailPassword := viper.GetString("email.password")
+// 发送邮件
+func MailReminder(mail, content string) error {
+	mailAccount := "13760831277@163.com"
+	mailPassword := "PAPQMFLGPZIIEPBJ"
 	e := email.NewEmail()
 	e.From = "Test <" + mailAccount + ">"
 	e.To = []string{mail}
 	e.Subject = "验证码发送测试"
-	e.HTML = []byte("您的验证码为<h1>" + code + "</h1>")
+	e.HTML = []byte("您的验证码为<h1>" + content + "</h1>")
 	err := e.SendWithStartTLS("smtp.163.com:25", smtp.PlainAuth("", mailAccount, mailPassword, "smtp.163.com"),
 		&tls.Config{InsecureSkipVerify: true, ServerName: "smtp.163.com"})
 	if err != nil {

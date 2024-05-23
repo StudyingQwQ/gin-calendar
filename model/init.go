@@ -39,8 +39,6 @@ func InitDB() *gorm.DB {
 }
 
 func InitRedis() *redis.Client {
-	// host := viper.GetString("redis.host")
-	// port := viper.GetString("redis.port")
 	return redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
 	})
